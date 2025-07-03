@@ -1,7 +1,7 @@
 import React from 'react';
 import FunctionalInput from './components/FunctionalInput';
 import ClassInput from './components/ClassInput';
-import './style.css';
+import './App.css';
 
 export default function App() {
   return (
