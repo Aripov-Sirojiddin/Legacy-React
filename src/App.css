@@ -22,7 +22,9 @@ section > * {
   background-color: #111;
   box-shadow: #444 0px 0.2rem 0.5rem;
 }
-
+h1 {
+  font-size: xx-large;
+}
 h3 {
   font-family: 'Titan One', cursive;
   font-weight: 300;

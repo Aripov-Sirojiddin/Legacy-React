@@ -10,9 +10,12 @@ class ClassInput extends Component {
       todos: ["Just some demo tasks", "As an example"],
       inputVal: "",
       editIndex: "",
+      editVal: "",
     };
     this.handleDeleteTodo = this.handleDeleteTodo.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
+    this.handleEditChanges = this.handleEditChanges.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
@@ -42,6 +45,13 @@ class ClassInput extends Component {
     this.setState((state) => ({
       ...state,
       editIndex: todoIndex,
+      editVal: state.todos[todoIndex],
+    }));
+  }
+  handleEditChanges(e) {
+    this.setState((state) => ({
+      ...state,
+      editVal: e.target.value,
     }));
   }
 
@@ -81,8 +91,18 @@ class ClassInput extends Component {
               );
             } else {
               return (
-                <li>
-                  <button>Update</button>
+                <li key={todo}>
+                  <form onSubmit={this.handleEditSubmit}>
+                    {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
+                    <input
+                      placeholder={`Update ${todo}`}
+                      type="text"
+                      name="task-entry"
+                      value={this.state.editVal}
+                      onChange={this.handleEditChanges}
+                    />
+                    <button type="submit">Update</button>
+                  </form>
                 </li>
               );
             }
