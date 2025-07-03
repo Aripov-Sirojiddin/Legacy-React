@@ -14,9 +14,10 @@ class ClassInput extends Component {
     };
     this.handleDeleteTodo = this.handleDeleteTodo.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
     this.handleEdit = this.handleEdit.bind(this);
     this.handleEditChanges = this.handleEditChanges.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleEditSubmit = this.handleEditSubmit.bind(this);
   }
 
   handleDeleteTodo(todo) {
@@ -55,6 +56,17 @@ class ClassInput extends Component {
     }));
   }
 
+  handleEditSubmit(e, i) {
+    e.preventDefault();
+    this.setState((state) => {
+      state.todos[i] = state.editVal;
+      return {
+        ...state,
+        editVal: "",
+        editIndex: "",
+      };
+    });
+  }
   render() {
     return (
       <section>
@@ -92,7 +104,7 @@ class ClassInput extends Component {
             } else {
               return (
                 <li key={todo}>
-                  <form onSubmit={this.handleEditSubmit}>
+                  <form onSubmit={(e) => this.handleEditSubmit(e, i)}>
                     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
                     <input
                       placeholder={`Update ${todo}`}
