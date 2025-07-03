@@ -9,6 +9,7 @@ class ClassInput extends Component {
     this.state = {
       todos: ["Just some demo tasks", "As an example"],
       inputVal: "",
+      editIndex: "",
     };
     this.handleDeleteTodo = this.handleDeleteTodo.bind(this);
     this.handleInputChange = this.handleInputChange.bind(this);
@@ -37,10 +38,17 @@ class ClassInput extends Component {
     }));
   }
 
+  handleEdit(todoIndex) {
+    this.setState((state) => ({
+      ...state,
+      editIndex: todoIndex,
+    }));
+  }
+
   render() {
     return (
       <section>
-        <ClassCount todos={this.state.todos}/>
+        <ClassCount todos={this.state.todos} />
         {/* eslint-disable-next-line react/prop-types */}
         <h3>{this.props.name}</h3>
         {/* The input field to enter To-Do's */}
@@ -58,12 +66,27 @@ class ClassInput extends Component {
         <h4>All the tasks!</h4>
         {/* The list of all the To-Do's, displayed */}
         <ul>
-          {this.state.todos.map((todo) => (
-            <div key={`${todo}-div`}>
-              <li key={todo}>{todo}</li>
-              <button key={`${todo}-delete-button`} onClick={() => this.handleDeleteTodo(todo)}>Delete {todo}</button>
-            </div>
-          ))}
+          {this.state.todos.map((todo, i) => {
+            if (this.state.editIndex !== i) {
+              return (
+                <li onClick={() => this.handleEdit(i)} key={todo}>
+                  {todo}
+                  <button
+                    key={`${todo}-delete-button`}
+                    onClick={() => this.handleDeleteTodo(todo)}
+                  >
+                    Delete {todo}
+                  </button>
+                </li>
+              );
+            } else {
+              return (
+                <li>
+                  <button>Update</button>
+                </li>
+              );
+            }
+          })}
         </ul>
       </section>
     );
