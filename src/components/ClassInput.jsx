@@ -1,5 +1,6 @@
 /* eslint-disable react/destructuring-assignment */
 import React, { Component } from "react";
+import ClassCount from "./ClassCount";
 
 class ClassInput extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class ClassInput extends Component {
   render() {
     return (
       <section>
+        <ClassCount todos={this.state.todos}/>
         {/* eslint-disable-next-line react/prop-types */}
         <h3>{this.props.name}</h3>
         {/* The input field to enter To-Do's */}
@@ -57,10 +59,10 @@ class ClassInput extends Component {
         {/* The list of all the To-Do's, displayed */}
         <ul>
           {this.state.todos.map((todo) => (
-            <>
+            <div key={`${todo}-div`}>
               <li key={todo}>{todo}</li>
-              <button onClick={() => this.handleDeleteTodo(todo)}>Delete {todo}</button>
-            </>
+              <button key={`${todo}-delete-button`} onClick={() => this.handleDeleteTodo(todo)}>Delete {todo}</button>
+            </div>
           ))}
         </ul>
       </section>
